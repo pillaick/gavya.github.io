@@ -1,1144 +1,934 @@
-!DOCTYPE html>
-
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>GAVYA Consulting — AI Strategy for Tomorrow</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gavya Consulting | AI Advisory, Enterprise Architecture & Digital Transformation</title>
+  <meta
+    name="description"
+    content="Gavya Consulting helps organizations accelerate AI adoption, enterprise architecture, digital transformation, and technology strategy across Europe."
+  />
+  <meta
+    name="keywords"
+    content="Gavya Consulting, AI consulting, enterprise architecture, digital transformation, Brussels, Europe, AI advisory, technology strategy"
+  />
+  <meta name="author" content="Gavya Consulting" />
+  <meta property="og:title" content="Gavya Consulting" />
+  <meta
+    property="og:description"
+    content="AI Advisory, Enterprise Architecture & Digital Transformation for forward-looking organizations."
+  />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://gavya.eu/og-image.jpg" />
+  <meta property="og:url" content="https://gavya.eu" />
+  <link rel="canonical" href="https://gavya.eu" />
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0b1220;
+      --bg-soft: #121a2c;
+      --surface: rgba(255, 255, 255, 0.08);
+      --surface-strong: rgba(255, 255, 255, 0.12);
+      --text: #f4f7fb;
+      --muted: #b8c2d3;
+      --primary: #4f8cff;
+      --primary-2: #7a5cff;
+      --accent: #18c3b1;
+      --border: rgba(255, 255, 255, 0.12);
+      --shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+      --radius: 20px;
+      --max-width: 1180px;
+    }
 
-```
-:root {
-  --black: #080A0F;
-  --white: #F4F2EE;
-  --cream: #EDE9E1;
-  --gold: #C9A84C;
-  --gold-light: #E2C47A;
-  --charcoal: #141720;
-  --mid: #2A2D38;
-  --muted: #6B7080;
-  --border: rgba(201,168,76,0.18);
-}
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-html { scroll-behavior: smooth; }
+    html {
+      scroll-behavior: smooth;
+    }
 
-body {
-  background: var(--black);
-  color: var(--white);
-  font-family: 'DM Sans', sans-serif;
-  font-weight: 300;
-  overflow-x: hidden;
-  cursor: none;
-}
+    body {
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(79, 140, 255, 0.2), transparent 35%),
+        radial-gradient(circle at 85% 10%, rgba(122, 92, 255, 0.18), transparent 30%),
+        linear-gradient(180deg, #08101d 0%, #0b1220 45%, #0d1627 100%);
+      color: var(--text);
+      line-height: 1.6;
+    }
 
-/* Custom Cursor */
-.cursor {
-  width: 10px; height: 10px;
-  background: var(--gold);
-  border-radius: 50%;
-  position: fixed;
-  top: 0; left: 0;
-  pointer-events: none;
-  z-index: 9999;
-  transition: transform 0.15s ease;
-  mix-blend-mode: difference;
-}
-.cursor-ring {
-  width: 36px; height: 36px;
-  border: 1px solid var(--gold);
-  border-radius: 50%;
-  position: fixed;
-  top: 0; left: 0;
-  pointer-events: none;
-  z-index: 9998;
-  transition: transform 0.35s cubic-bezier(0.25,1,0.5,1), opacity 0.2s;
-  opacity: 0.5;
-}
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
-/* Noise overlay */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: 9990;
-  opacity: 0.35;
-}
+    img {
+      max-width: 100%;
+      display: block;
+    }
 
-/* ── NAV ── */
-nav {
-  position: fixed; top: 0; left: 0; right: 0;
-  z-index: 100;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 28px 60px;
-  border-bottom: 1px solid transparent;
-  transition: background 0.4s, border-color 0.4s, padding 0.4s;
-}
-nav.scrolled {
-  background: rgba(8,10,15,0.92);
-  border-color: var(--border);
-  padding: 18px 60px;
-  backdrop-filter: blur(12px);
-}
-.logo {
-  font-family: 'Syne', sans-serif;
-  font-weight: 800;
-  font-size: 1.25rem;
-  letter-spacing: -0.02em;
-  color: var(--white);
-  text-decoration: none;
-}
-.logo span { color: var(--gold); }
-.nav-links { display: flex; gap: 40px; list-style: none; }
-.nav-links a {
-  color: var(--muted);
-  text-decoration: none;
-  font-size: 0.88rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  transition: color 0.2s;
-}
-.nav-links a:hover { color: var(--white); }
-.nav-cta {
-  background: transparent;
-  border: 1px solid var(--gold);
-  color: var(--gold);
-  padding: 10px 24px;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.85rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  cursor: none;
-  transition: background 0.2s, color 0.2s;
-  text-decoration: none;
-}
-.nav-cta:hover { background: var(--gold); color: var(--black); }
+    .container {
+      width: min(92%, var(--max-width));
+      margin: 0 auto;
+    }
 
-/* ── HERO ── */
-#hero {
-  min-height: 100vh;
-  display: flex; align-items: center;
-  padding: 140px 60px 80px;
-  position: relative;
-  overflow: hidden;
-}
+    .section {
+      padding: 90px 0;
+    }
 
-.hero-grid-bg {
-  position: absolute; inset: 0;
-  background-image:
-    linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
-  background-size: 80px 80px;
-  mask-image: radial-gradient(ellipse 80% 80% at 50% 40%, black 30%, transparent 100%);
-}
-.hero-glow {
-  position: absolute;
-  width: 700px; height: 700px;
-  background: radial-gradient(circle, rgba(201,168,76,0.09) 0%, transparent 70%);
-  top: -100px; right: -100px;
-  pointer-events: none;
-}
-.hero-glow-2 {
-  position: absolute;
-  width: 400px; height: 400px;
-  background: radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%);
-  bottom: 0; left: 10%;
-  pointer-events: none;
-}
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.92rem;
+      margin-bottom: 22px;
+      backdrop-filter: blur(10px);
+    }
 
-.hero-content { position: relative; max-width: 800px; }
-.hero-tag {
-  display: inline-flex; align-items: center; gap: 10px;
-  border: 1px solid var(--border);
-  padding: 7px 16px;
-  font-size: 0.78rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 40px;
-  animation: fadeUp 0.8s ease both;
-}
-.hero-tag::before {
-  content: '';
-  width: 6px; height: 6px;
-  background: var(--gold);
-  border-radius: 50%;
-  animation: pulse 2s infinite;
-}
-@keyframes pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.4; transform: scale(0.8); }
-}
+    .pill::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--primary));
+      box-shadow: 0 0 18px rgba(24, 195, 177, 0.7);
+    }
 
-h1 {
-  font-family: 'Syne', sans-serif;
-  font-weight: 800;
-  font-size: clamp(3rem, 6vw, 5.5rem);
-  line-height: 1.0;
-  letter-spacing: -0.03em;
-  color: var(--white);
-  animation: fadeUp 0.9s 0.1s ease both;
-}
-h1 em {
-  font-style: normal;
-  color: var(--gold);
-  position: relative;
-}
-h1 em::after {
-  content: '';
-  position: absolute;
-  bottom: 4px; left: 0; right: 0;
-  height: 2px;
-  background: var(--gold);
-  opacity: 0.3;
-}
+    h1, h2, h3 {
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+    }
 
-.hero-sub {
-  margin-top: 28px;
-  font-size: 1.1rem;
-  line-height: 1.7;
-  color: var(--muted);
-  max-width: 520px;
-  animation: fadeUp 1s 0.2s ease both;
-}
+    h1 {
+      font-size: clamp(2.6rem, 6vw, 5rem);
+      font-weight: 800;
+      max-width: 950px;
+    }
 
-.hero-actions {
-  margin-top: 48px;
-  display: flex; gap: 20px; align-items: center;
-  animation: fadeUp 1s 0.3s ease both;
-}
-.btn-primary {
-  background: var(--gold);
-  color: var(--black);
-  padding: 16px 36px;
-  font-family: 'DM Sans', sans-serif;
-  font-weight: 500;
-  font-size: 0.9rem;
-  letter-spacing: 0.04em;
-  text-decoration: none;
-  display: inline-block;
-  transition: background 0.2s, transform 0.2s;
-}
-.btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
-.btn-ghost {
-  color: var(--muted);
-  font-size: 0.88rem;
-  text-decoration: none;
-  display: flex; align-items: center; gap: 8px;
-  transition: color 0.2s;
-}
-.btn-ghost:hover { color: var(--white); }
-.btn-ghost svg { transition: transform 0.2s; }
-.btn-ghost:hover svg { transform: translateX(4px); }
+    h2 {
+      font-size: clamp(2rem, 4vw, 3.1rem);
+      font-weight: 800;
+      margin-bottom: 18px;
+    }
 
-.hero-stats {
-  margin-top: 80px;
-  display: flex; gap: 60px;
-  animation: fadeUp 1s 0.4s ease both;
-}
-.stat-item {}
-.stat-num {
-  font-family: 'Syne', sans-serif;
-  font-size: 2.2rem;
-  font-weight: 700;
-  color: var(--white);
-  line-height: 1;
-}
-.stat-num span { color: var(--gold); }
-.stat-label {
-  margin-top: 6px;
-  font-size: 0.82rem;
-  color: var(--muted);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
+    h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
 
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(24px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+    p.lead {
+      font-size: clamp(1.05rem, 2vw, 1.25rem);
+      color: var(--muted);
+      max-width: 850px;
+      margin-top: 24px;
+    }
 
-/* ── MARQUEE ── */
-.marquee-bar {
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  padding: 18px 0;
-  overflow: hidden;
-  background: var(--charcoal);
-}
-.marquee-track {
-  display: flex;
-  gap: 60px;
-  animation: marquee 22s linear infinite;
-  white-space: nowrap;
-}
-.marquee-item {
-  font-size: 0.78rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--muted);
-  display: flex; align-items: center; gap: 16px;
-  flex-shrink: 0;
-}
-.marquee-item::before { content: '◆'; color: var(--gold); font-size: 0.5rem; }
-@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    p.section-text {
+      color: var(--muted);
+      font-size: 1.02rem;
+      max-width: 760px;
+    }
 
-/* ── SECTIONS ── */
-section { padding: 120px 60px; }
-.section-label {
-  font-size: 0.75rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 20px;
-  display: flex; align-items: center; gap: 12px;
-}
-.section-label::before {
-  content: '';
-  width: 32px; height: 1px;
-  background: var(--gold);
-}
-h2 {
-  font-family: 'Syne', sans-serif;
-  font-weight: 700;
-  font-size: clamp(2rem, 4vw, 3.2rem);
-  line-height: 1.1;
-  letter-spacing: -0.02em;
-  color: var(--white);
-}
+    .gradient-text {
+      background: linear-gradient(135deg, #ffffff 0%, #9bc0ff 40%, #a79bff 72%, #7df2e3 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
 
-/* ── SERVICES ── */
-#services { background: var(--charcoal); }
-.services-header {
-  display: flex; justify-content: space-between; align-items: flex-end;
-  margin-bottom: 72px;
-  gap: 40px;
-}
-.services-header p {
-  max-width: 380px;
-  color: var(--muted);
-  line-height: 1.7;
-  font-size: 1rem;
-}
-.services-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2px;
-}
-.service-card {
-  background: var(--black);
-  padding: 48px 40px;
-  position: relative;
-  overflow: hidden;
-  transition: background 0.3s;
-  cursor: none;
-}
-.service-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 2px;
-  background: var(--gold);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.4s ease;
-}
-.service-card:hover::before { transform: scaleX(1); }
-.service-card:hover { background: #0E1017; }
+    /* Header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(16px);
+      background: rgba(9, 15, 27, 0.7);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
 
-.service-icon {
-  width: 48px; height: 48px;
-  border: 1px solid var(--border);
-  display: flex; align-items: center; justify-content: center;
-  margin-bottom: 32px;
-  color: var(--gold);
-  font-size: 1.4rem;
-  transition: border-color 0.3s, background 0.3s;
-}
-.service-card:hover .service-icon {
-  border-color: var(--gold);
-  background: rgba(201,168,76,0.06);
-}
-.service-num {
-  position: absolute; top: 40px; right: 40px;
-  font-family: 'Syne', sans-serif;
-  font-size: 0.75rem;
-  color: var(--mid);
-  letter-spacing: 0.1em;
-}
-.service-title {
-  font-family: 'Syne', sans-serif;
-  font-weight: 600;
-  font-size: 1.25rem;
-  color: var(--white);
-  margin-bottom: 14px;
-}
-.service-desc {
-  font-size: 0.92rem;
-  color: var(--muted);
-  line-height: 1.7;
-}
-.service-tags {
-  margin-top: 28px;
-  display: flex; flex-wrap: wrap; gap: 8px;
-}
-.tag {
-  font-size: 0.72rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  border: 1px solid var(--mid);
-  color: var(--muted);
-  padding: 4px 10px;
-}
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 78px;
+      gap: 20px;
+    }
 
-/* ── ABOUT / APPROACH ── */
-#approach {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 100px;
-  align-items: center;
-}
-.approach-visual {
-  position: relative;
-  aspect-ratio: 1;
-  max-width: 500px;
-}
-.approach-circle {
-  width: 100%; height: 100%;
-  border-radius: 50%;
-  border: 1px solid var(--border);
-  position: absolute;
-  animation: rotateSlow 20s linear infinite;
-}
-.approach-circle::before {
-  content: '';
-  position: absolute;
-  top: -4px; left: 50%;
-  width: 8px; height: 8px;
-  background: var(--gold);
-  border-radius: 50%;
-  transform: translateX(-50%);
-}
-.approach-circle-2 {
-  width: 70%; height: 70%;
-  top: 15%; left: 15%;
-  animation: rotateSlow 14s linear infinite reverse;
-  border-style: dashed;
-  border-color: rgba(201,168,76,0.1);
-}
-.approach-center {
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-}
-.approach-center-num {
-  font-family: 'Syne', sans-serif;
-  font-size: 4rem;
-  font-weight: 800;
-  color: var(--gold);
-  line-height: 1;
-}
-.approach-center-label {
-  font-size: 0.8rem;
-  color: var(--muted);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-}
-@keyframes rotateSlow {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-.orbit-dot {
-  position: absolute;
-  width: 8px; height: 8px;
-  background: var(--gold);
-  border-radius: 50%;
-  opacity: 0.6;
-}
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-weight: 800;
+      font-size: 1.1rem;
+      letter-spacing: -0.03em;
+    }
 
-.approach-text h2 { margin-bottom: 24px; }
-.approach-text p {
-  color: var(--muted);
-  line-height: 1.8;
-  margin-bottom: 20px;
-}
-.approach-steps { margin-top: 40px; }
-.step {
-  display: flex; gap: 20px;
-  padding: 24px 0;
-  border-bottom: 1px solid var(--border);
-}
-.step:first-child { border-top: 1px solid var(--border); }
-.step-num {
-  font-family: 'Syne', sans-serif;
-  font-size: 0.75rem;
-  color: var(--gold);
-  letter-spacing: 0.1em;
-  min-width: 32px;
-  padding-top: 3px;
-}
-.step-content h4 {
-  font-family: 'Syne', sans-serif;
-  font-weight: 600;
-  font-size: 1rem;
-  color: var(--white);
-  margin-bottom: 6px;
-}
-.step-content p { font-size: 0.9rem; color: var(--muted); line-height: 1.6; }
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-2), var(--accent));
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-weight: 900;
+      box-shadow: 0 12px 28px rgba(79, 140, 255, 0.35);
+    }
 
-/* ── CASE STUDIES ── */
-#work { background: var(--charcoal); }
-.work-grid {
-  margin-top: 64px;
-  display: grid;
-  grid-template-columns: 1.4fr 1fr;
-  grid-template-rows: auto auto;
-  gap: 2px;
-}
-.case-card {
-  background: var(--black);
-  padding: 52px 48px;
-  position: relative;
-  overflow: hidden;
-  cursor: none;
-  transition: background 0.3s;
-}
-.case-card:hover { background: #0C0E13; }
-.case-card.tall { grid-row: span 2; }
-.case-industry {
-  font-size: 0.72rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 40px;
-  display: flex; align-items: center; gap: 10px;
-}
-.case-industry::before {
-  content: '';
-  width: 20px; height: 1px;
-  background: var(--gold);
-}
-.case-title {
-  font-family: 'Syne', sans-serif;
-  font-weight: 700;
-  font-size: clamp(1.4rem, 2.5vw, 2rem);
-  color: var(--white);
-  line-height: 1.2;
-  margin-bottom: 18px;
-}
-.case-desc { font-size: 0.92rem; color: var(--muted); line-height: 1.7; }
-.case-result {
-  margin-top: 36px;
-  display: flex; gap: 36px;
-}
-.result-item {}
-.result-val {
-  font-family: 'Syne', sans-serif;
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: var(--gold);
-}
-.result-label { font-size: 0.78rem; color: var(--muted); margin-top: 4px; }
-.case-arrow {
-  position: absolute; bottom: 48px; right: 48px;
-  width: 44px; height: 44px;
-  border: 1px solid var(--border);
-  display: flex; align-items: center; justify-content: center;
-  color: var(--muted);
-  transition: border-color 0.2s, color 0.2s, background 0.2s;
-}
-.case-card:hover .case-arrow {
-  border-color: var(--gold);
-  color: var(--gold);
-  background: rgba(201,168,76,0.06);
-}
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
 
-/* ── TESTIMONIALS ── */
-#testimonials { overflow: hidden; }
-.testimonials-header { margin-bottom: 72px; }
-.testimonials-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-}
-.testimonial-card {
-  background: var(--charcoal);
-  padding: 40px;
-  border: 1px solid var(--border);
-  position: relative;
-}
-.testimonial-card::before {
-  content: '\201C';
-  font-family: 'Syne', sans-serif;
-  font-size: 5rem;
-  color: var(--gold);
-  opacity: 0.15;
-  position: absolute;
-  top: 10px; left: 30px;
-  line-height: 1;
-}
-.testimonial-text {
-  font-size: 0.97rem;
-  line-height: 1.75;
-  color: var(--white);
-  margin-bottom: 32px;
-  font-style: italic;
-}
-.testimonial-author { display: flex; align-items: center; gap: 14px; }
-.author-avatar {
-  width: 42px; height: 42px;
-  border-radius: 50%;
-  background: var(--mid);
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'Syne', sans-serif;
-  font-weight: 700;
-  color: var(--gold);
-  font-size: 0.9rem;
-}
-.author-name {
-  font-family: 'Syne', sans-serif;
-  font-weight: 600;
-  font-size: 0.92rem;
-  color: var(--white);
-}
-.author-role { font-size: 0.8rem; color: var(--muted); margin-top: 2px; }
+    .nav-links a {
+      color: var(--muted);
+      font-weight: 500;
+      transition: 0.25s ease;
+    }
 
-/* ── CTA ── */
-#contact {
-  background: var(--charcoal);
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-.cta-glow {
-  position: absolute;
-  width: 600px; height: 600px;
-  background: radial-gradient(circle, rgba(201,168,76,0.07) 0%, transparent 70%);
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-}
-.cta-inner { position: relative; max-width: 640px; margin: 0 auto; }
-.cta-inner .section-label { justify-content: center; }
-.cta-inner .section-label::before { display: none; }
-.cta-inner h2 { font-size: clamp(2.4rem, 5vw, 4rem); margin-bottom: 24px; }
-.cta-inner p { color: var(--muted); line-height: 1.7; margin-bottom: 48px; }
-.cta-form { display: flex; gap: 0; max-width: 480px; margin: 0 auto; }
-.cta-input {
-  flex: 1;
-  background: var(--black);
-  border: 1px solid var(--mid);
-  border-right: none;
-  padding: 16px 20px;
-  color: var(--white);
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.92rem;
-  outline: none;
-  transition: border-color 0.2s;
-}
-.cta-input::placeholder { color: var(--muted); }
-.cta-input:focus { border-color: var(--gold); }
-.cta-btn {
-  background: var(--gold);
-  color: var(--black);
-  border: none;
-  padding: 16px 28px;
-  font-family: 'DM Sans', sans-serif;
-  font-weight: 500;
-  font-size: 0.88rem;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  cursor: none;
-  transition: background 0.2s;
-}
-.cta-btn:hover { background: var(--gold-light); }
+    .nav-links a:hover {
+      color: var(--text);
+    }
 
-/* ── FOOTER ── */
-footer {
-  background: var(--black);
-  padding: 72px 60px 40px;
-  border-top: 1px solid var(--border);
-}
-.footer-top {
-  display: flex; justify-content: space-between;
-  margin-bottom: 64px;
-  gap: 60px;
-}
-.footer-brand { max-width: 320px; }
-.footer-brand .logo { font-size: 1.4rem; display: block; margin-bottom: 16px; }
-.footer-brand p { font-size: 0.9rem; color: var(--muted); line-height: 1.7; }
-.footer-cols { display: flex; gap: 80px; }
-.footer-col h5 {
-  font-family: 'Syne', sans-serif;
-  font-weight: 600;
-  font-size: 0.85rem;
-  color: var(--white);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  margin-bottom: 20px;
-}
-.footer-col ul { list-style: none; }
-.footer-col li { margin-bottom: 12px; }
-.footer-col a {
-  color: var(--muted);
-  text-decoration: none;
-  font-size: 0.88rem;
-  transition: color 0.2s;
-}
-.footer-col a:hover { color: var(--white); }
-.footer-bottom {
-  display: flex; justify-content: space-between; align-items: center;
-  border-top: 1px solid var(--border);
-  padding-top: 28px;
-}
-.footer-copy { font-size: 0.82rem; color: var(--muted); }
-.footer-socials { display: flex; gap: 16px; }
-.social-link {
-  width: 36px; height: 36px;
-  border: 1px solid var(--mid);
-  display: flex; align-items: center; justify-content: center;
-  color: var(--muted);
-  text-decoration: none;
-  font-size: 0.75rem;
-  font-weight: 600;
-  transition: border-color 0.2s, color 0.2s;
-}
-.social-link:hover { border-color: var(--gold); color: var(--gold); }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 22px;
+      border-radius: 14px;
+      font-weight: 700;
+      border: 1px solid transparent;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+      cursor: pointer;
+    }
 
-/* Scroll animations */
-.reveal {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
-}
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
+    .btn:hover {
+      transform: translateY(-2px);
+    }
 
-@media (max-width: 1024px) {
-  nav { padding: 24px 30px; }
-  nav.scrolled { padding: 16px 30px; }
-  section { padding: 80px 30px; }
-  #hero { padding: 120px 30px 60px; }
-  .services-grid { grid-template-columns: 1fr 1fr; }
-  #approach { grid-template-columns: 1fr; gap: 60px; }
-  .approach-visual { max-width: 340px; margin: 0 auto; }
-  .work-grid { grid-template-columns: 1fr; }
-  .case-card.tall { grid-row: span 1; }
-  .testimonials-grid { grid-template-columns: 1fr; }
-  .hero-stats { gap: 36px; }
-  footer { padding: 60px 30px 32px; }
-  .footer-top { flex-direction: column; }
-}
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
+      color: #fff;
+      box-shadow: 0 18px 34px rgba(79, 140, 255, 0.28);
+    }
 
-@media (max-width: 640px) {
-  .nav-links { display: none; }
-  .services-grid { grid-template-columns: 1fr; }
-  .services-header { flex-direction: column; }
-  h1 { font-size: 2.8rem; }
-  .hero-stats { flex-wrap: wrap; gap: 28px; }
-  .footer-cols { flex-direction: column; gap: 40px; }
-  .footer-bottom { flex-direction: column; gap: 20px; }
-  .cta-form { flex-direction: column; }
-  .cta-input { border-right: 1px solid var(--mid); border-bottom: none; }
-}
-```
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: var(--border);
+      color: var(--text);
+    }
 
+    /* Hero */
+    .hero {
+      padding: 90px 0 70px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 34px;
+      align-items: center;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 30px;
+    }
+
+    .hero-card,
+    .glass-card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.05));
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+    }
+
+    .hero-card {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      inset: auto -40px -40px auto;
+      width: 180px;
+      height: 180px;
+      background: radial-gradient(circle, rgba(24,195,177,0.28), transparent 60%);
+      pointer-events: none;
+    }
+
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-top: 22px;
+    }
+
+    .kpi {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    .kpi strong {
+      display: block;
+      font-size: 1.6rem;
+      margin-bottom: 6px;
+    }
+
+    .kpi span {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .hero-highlights {
+      list-style: none;
+      margin-top: 20px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .hero-highlights li {
+      color: var(--muted);
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .hero-highlights li::before {
+      content: "✓";
+      color: var(--accent);
+      font-weight: 800;
+      margin-top: 1px;
+    }
+
+    /* Trust bar */
+    .trust-bar {
+      padding-top: 12px;
+    }
+
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      margin-top: 26px;
+    }
+
+    .trust-item {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 22px;
+      text-align: center;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    /* Services */
+    .services-grid,
+    .insights-grid,
+    .contact-grid {
+      display: grid;
+      gap: 22px;
+    }
+
+    .services-grid {
+      grid-template-columns: repeat(3, 1fr);
+      margin-top: 34px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 26px;
+      box-shadow: var(--shadow);
+    }
+
+    .icon {
+      width: 54px;
+      height: 54px;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      font-size: 1.4rem;
+      background: linear-gradient(135deg, rgba(79,140,255,0.18), rgba(122,92,255,0.2));
+      margin-bottom: 18px;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .card p,
+    .card li {
+      color: var(--muted);
+    }
+
+    .card ul {
+      margin-top: 14px;
+      padding-left: 18px;
+    }
+
+    /* About */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      align-items: start;
+      margin-top: 34px;
+    }
+
+    .about-box {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 28px;
+    }
+
+    .about-box p,
+    .about-box li {
+      color: var(--muted);
+    }
+
+    .about-box ul {
+      padding-left: 20px;
+      margin-top: 12px;
+    }
+
+    /* Insights */
+    .insights-grid {
+      grid-template-columns: repeat(3, 1fr);
+      margin-top: 34px;
+    }
+
+    .insight-tag {
+      display: inline-block;
+      font-size: 0.82rem;
+      color: #c7d2e4;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 7px 12px;
+      margin-bottom: 16px;
+    }
+
+    /* CTA */
+    .cta {
+      padding: 30px 0 90px;
+    }
+
+    .cta-box {
+      padding: 42px;
+      border-radius: 28px;
+      background:
+        linear-gradient(135deg, rgba(79,140,255,0.16), rgba(122,92,255,0.14)),
+        rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+
+    .cta-box p {
+      color: var(--muted);
+      max-width: 760px;
+      margin: 16px auto 28px;
+    }
+
+    /* Contact */
+    .contact-grid {
+      grid-template-columns: 1fr 1fr;
+      margin-top: 34px;
+      align-items: stretch;
+    }
+
+    .contact-list {
+      display: grid;
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .contact-item {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    .contact-item small {
+      display: block;
+      color: #8ea0be;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.72rem;
+    }
+
+    .contact-item a,
+    .contact-item span {
+      color: var(--text);
+      font-weight: 600;
+      word-break: break-word;
+    }
+
+    .contact-form {
+      display: grid;
+      gap: 14px;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      background: rgba(255,255,255,0.05);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px 16px;
+      font: inherit;
+      outline: none;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      border-color: rgba(79, 140, 255, 0.7);
+      transform: translateY(-1px);
+    }
+
+    .contact-form textarea {
+      min-height: 140px;
+      resize: vertical;
+    }
+
+    .form-note {
+      color: #93a6c7;
+      font-size: 0.9rem;
+    }
+
+    /* Footer */
+    footer {
+      padding: 30px 0 50px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      color: var(--muted);
+    }
+
+    .footer-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a:hover {
+      color: var(--text);
+    }
+
+    /* Responsive */
+    @media (max-width: 1050px) {
+      .hero-grid,
+      .about-grid,
+      .contact-grid,
+      .services-grid,
+      .insights-grid,
+      .trust-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .nav {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 16px 0;
+      }
+
+      .nav-links {
+        gap: 16px;
+      }
+
+      .hero,
+      .section {
+        padding: 70px 0;
+      }
+
+      .hero-grid,
+      .about-grid,
+      .contact-grid,
+      .services-grid,
+      .insights-grid,
+      .trust-grid,
+      .kpi-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cta-box {
+        padding: 30px 22px;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+      }
+    }
   </style>
 </head>
 <body>
-
-  <div class="cursor" id="cursor"></div>
-  <div class="cursor-ring" id="cursorRing"></div>
-
-  <!-- NAV -->
-
-  <nav id="navbar">
-    <a href="#" class="logo">Neural<span>Edge</span></a>
-    <ul class="nav-links">
-      <li><a href="#services">Services</a></li>
-      <li><a href="#approach">Approach</a></li>
-      <li><a href="#work">Work</a></li>
-      <li><a href="#testimonials">Clients</a></li>
-    </ul>
-    <a href="#contact" class="nav-cta">Get in Touch</a>
-  </nav>
-
-  <!-- HERO -->
-
-  <section id="hero">
-    <div class="hero-grid-bg"></div>
-    <div class="hero-glow"></div>
-    <div class="hero-glow-2"></div>
-    <div class="hero-content">
-      <div class="hero-tag">AI Consulting &amp; Strategy</div>
-      <h1>We turn <em>artificial intelligence</em> into real advantage</h1>
-      <p class="hero-sub">GAVYA helps forward-thinking businesses design, deploy, and scale AI systems that create measurable, lasting competitive advantage.</p>
-      <div class="hero-actions">
-        <a href="#contact" class="btn-primary">Start a Conversation</a>
-        <a href="#work" class="btn-ghost">
-          View Our Work
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </a>
-      </div>
-      <div class="hero-stats">
-        <div class="stat-item">
-          <div class="stat-num">85<span>+</span></div>
-          <div class="stat-label">Projects Delivered</div>
+  <header>
+    <div class="container nav">
+      <a href="#home" class="brand" aria-label="Gavya Consulting home">
+        <div class="brand-mark">G</div>
+        <div>
+          <div>Gavya Consulting</div>
         </div>
-        <div class="stat-item">
-          <div class="stat-num">40<span>+</span></div>
-          <div class="stat-label">Enterprise Clients</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-num">3.2<span>×</span></div>
-          <div class="stat-label">Avg. ROI Delivered</div>
-        </div>
-      </div>
+      </a>
+
+      <nav class="nav-links" aria-label="Main navigation">
+        <a href="#services">Services</a>
+        <a href="#about">About</a>
+        <a href="#insights">Insights</a>
+        <a href="#contact">Contact</a>
+        <a href="#contact" class="btn btn-primary">Book a Consultation</a>
+      </nav>
     </div>
-  </section>
+  </header>
 
-  <!-- MARQUEE -->
+  <main id="home">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="pill">AI Advisory • Enterprise Architecture • Digital Transformation</div>
+          <h1>
+            Helping organizations turn <span class="gradient-text">AI ambition</span> into
+            measurable business value.
+          </h1>
+          <p class="lead">
+            Gavya Consulting supports enterprises, public-sector institutions, and forward-looking
+            businesses with practical AI strategy, technology leadership, architecture excellence,
+            and transformation execution.
+          </p>
 
-  <div class="marquee-bar">
-    <div class="marquee-track">
-      <span class="marquee-item">AI Strategy</span>
-      <span class="marquee-item">Machine Learning</span>
-      <span class="marquee-item">LLM Integration</span>
-      <span class="marquee-item">Automation Pipelines</span>
-      <span class="marquee-item">Predictive Analytics</span>
-      <span class="marquee-item">Computer Vision</span>
-      <span class="marquee-item">AI Governance</span>
-      <span class="marquee-item">GenAI Products</span>
-      <span class="marquee-item">AI Strategy</span>
-      <span class="marquee-item">Machine Learning</span>
-      <span class="marquee-item">LLM Integration</span>
-      <span class="marquee-item">Automation Pipelines</span>
-      <span class="marquee-item">Predictive Analytics</span>
-      <span class="marquee-item">Computer Vision</span>
-      <span class="marquee-item">AI Governance</span>
-      <span class="marquee-item">GenAI Products</span>
-    </div>
-  </div>
-
-  <!-- SERVICES -->
-
-  <section id="services">
-    <div class="services-header reveal">
-      <div>
-        <div class="section-label">What We Do</div>
-        <h2>Services built for<br>serious AI adoption</h2>
-      </div>
-      <p>From initial strategy to full-scale deployment, we guide every stage of your AI transformation with rigorous thinking and hands-on execution.</p>
-    </div>
-    <div class="services-grid">
-      <div class="service-card reveal">
-        <span class="service-num">01</span>
-        <div class="service-icon">⬡</div>
-        <div class="service-title">AI Strategy & Roadmap</div>
-        <div class="service-desc">We assess your data landscape, competitive position, and business goals to craft a pragmatic, prioritized AI roadmap that delivers value at every step.</div>
-        <div class="service-tags">
-          <span class="tag">Discovery</span>
-          <span class="tag">Roadmapping</span>
-          <span class="tag">Business Case</span>
-        </div>
-      </div>
-      <div class="service-card reveal">
-        <span class="service-num">02</span>
-        <div class="service-icon">◈</div>
-        <div class="service-title">LLM & GenAI Products</div>
-        <div class="service-desc">From RAG systems to custom copilots, we build production-grade generative AI applications on top of leading foundation models tailored to your workflows.</div>
-        <div class="service-tags">
-          <span class="tag">LLMs</span>
-          <span class="tag">RAG</span>
-          <span class="tag">Fine-tuning</span>
-        </div>
-      </div>
-      <div class="service-card reveal">
-        <span class="service-num">03</span>
-        <div class="service-icon">⬔</div>
-        <div class="service-title">ML Engineering</div>
-        <div class="service-desc">End-to-end machine learning: from feature engineering and model training to MLOps pipelines that keep your models performant in production.</div>
-        <div class="service-tags">
-          <span class="tag">MLOps</span>
-          <span class="tag">Prediction</span>
-          <span class="tag">Pipelines</span>
-        </div>
-      </div>
-      <div class="service-card reveal">
-        <span class="service-num">04</span>
-        <div class="service-icon">◇</div>
-        <div class="service-title">AI Automation</div>
-        <div class="service-desc">Identify and eliminate operational bottlenecks with intelligent automation — from document processing and data extraction to multi-agent workflows.</div>
-        <div class="service-tags">
-          <span class="tag">Agents</span>
-          <span class="tag">Workflow</span>
-          <span class="tag">Integration</span>
-        </div>
-      </div>
-      <div class="service-card reveal">
-        <span class="service-num">05</span>
-        <div class="service-icon">△</div>
-        <div class="service-title">Data Architecture</div>
-        <div class="service-desc">AI is only as strong as the data beneath it. We design scalable, clean data infrastructure that makes your AI initiatives reliable and repeatable.</div>
-        <div class="service-tags">
-          <span class="tag">Data Lake</span>
-          <span class="tag">ETL</span>
-          <span class="tag">Governance</span>
-        </div>
-      </div>
-      <div class="service-card reveal">
-        <span class="service-num">06</span>
-        <div class="service-icon">○</div>
-        <div class="service-title">AI Governance & Risk</div>
-        <div class="service-desc">Navigate the regulatory and ethical dimensions of AI. We help you build responsible AI systems with explainability, fairness, and audit trails built in.</div>
-        <div class="service-tags">
-          <span class="tag">Compliance</span>
-          <span class="tag">Ethics</span>
-          <span class="tag">Auditing</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- APPROACH -->
-
-  <section id="approach" style="padding: 120px 60px;">
-    <div class="approach-visual reveal">
-      <div class="approach-circle"></div>
-      <div class="approach-circle approach-circle-2"></div>
-      <div class="approach-center">
-        <div class="approach-center-num">4</div>
-        <div class="approach-center-label">Phase Method</div>
-      </div>
-    </div>
-    <div class="approach-text reveal">
-      <div class="section-label">Our Approach</div>
-      <h2>Methodology that<br>moves the needle</h2>
-      <p>We've distilled years of AI project experience into a repeatable four-phase process. It's rigorous where precision matters, and agile where speed creates advantage.</p>
-      <div class="approach-steps">
-        <div class="step">
-          <div class="step-num">01</div>
-          <div class="step-content">
-            <h4>Discover & Diagnose</h4>
-            <p>Deep-dive into your business, data, processes, and competitive landscape to identify the highest-leverage AI opportunities.</p>
+          <div class="hero-actions">
+            <a href="#contact" class="btn btn-primary">Schedule a Strategy Call</a>
+            <a href="#services" class="btn btn-secondary">Explore Services</a>
           </div>
+
+          <ul class="hero-highlights">
+            <li>AI strategy and adoption roadmaps aligned to business goals</li>
+            <li>Enterprise architecture for scalable and resilient digital platforms</li>
+            <li>Trusted partner for innovation, governance, and executive advisory</li>
+          </ul>
         </div>
-        <div class="step">
-          <div class="step-num">02</div>
-          <div class="step-content">
-            <h4>Design & Architect</h4>
-            <p>Co-create a solution architecture that balances ambition with pragmatism — right-sized for your team, tools, and timeline.</p>
+
+        <aside class="hero-card">
+          <h3>Why Gavya Consulting</h3>
+          <p class="section-text" style="margin-top: 8px;">
+            We bridge strategy and execution, combining business insight, enterprise technology
+            experience, and practical AI transformation thinking.
+          </p>
+
+          <div class="kpi-grid">
+            <div class="kpi">
+              <strong>AI</strong>
+              <span>Advisory and practical adoption support</span>
+            </div>
+            <div class="kpi">
+              <strong>EA</strong>
+              <span>Enterprise architecture and modernization</span>
+            </div>
+            <div class="kpi">
+              <strong>EU</strong>
+              <span>Experience in complex institutional environments</span>
+            </div>
+            <div class="kpi">
+              <strong>ROI</strong>
+              <span>Business-focused digital transformation outcomes</span>
+            </div>
           </div>
-        </div>
-        <div class="step">
-          <div class="step-num">03</div>
-          <div class="step-content">
-            <h4>Build & Iterate</h4>
-            <p>Ship working AI in weeks, not months. Rapid prototyping, rigorous testing, and continuous refinement with your team.</p>
-          </div>
-        </div>
-        <div class="step">
-          <div class="step-num">04</div>
-          <div class="step-content">
-            <h4>Scale & Sustain</h4>
-            <p>Productionize, monitor, and evolve your AI systems as your business grows — with training and knowledge transfer built in.</p>
-          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="trust-bar">
+      <div class="container">
+        <div class="pill">Trusted capabilities</div>
+        <div class="trust-grid">
+          <div class="trust-item">AI Strategy</div>
+          <div class="trust-item">Technology Leadership</div>
+          <div class="trust-item">Digital Modernization</div>
+          <div class="trust-item">Enterprise Advisory</div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- WORK -->
+    <section id="services" class="section">
+      <div class="container">
+        <div class="pill">Services</div>
+        <h2>Consulting services designed for modern organizations</h2>
+        <p class="section-text">
+          From AI strategy to enterprise architecture and digital transformation delivery, Gavya
+          Consulting helps leaders move from ideas to implementation with clarity and confidence.
+        </p>
 
-  <section id="work">
-    <div class="reveal">
-      <div class="section-label">Selected Work</div>
-      <h2>Results we're proud of</h2>
-    </div>
-    <div class="work-grid">
-      <div class="case-card tall reveal">
-        <div class="case-industry">Financial Services</div>
-        <div class="case-title">Automated credit decisioning for a $4B regional bank</div>
-        <div class="case-desc">Replaced a manual underwriting process with an ML-powered decision engine, reducing processing time from days to minutes while maintaining regulatory compliance and improving approval accuracy.</div>
-        <div class="case-result">
-          <div class="result-item">
-            <div class="result-val">94%</div>
-            <div class="result-label">Faster Decisioning</div>
-          </div>
-          <div class="result-item">
-            <div class="result-val">$2.4M</div>
-            <div class="result-label">Annual Savings</div>
-          </div>
+        <div class="services-grid">
+          <article class="card">
+            <div class="icon">AI</div>
+            <h3>AI Advisory & Strategy</h3>
+            <p>
+              Define practical AI use cases, governance models, operating principles, and roadmap
+              priorities that align innovation with measurable business impact.
+            </p>
+            <ul>
+              <li>AI opportunity assessment</li>
+              <li>Adoption roadmap and governance</li>
+              <li>Executive advisory and workshops</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <div class="icon">EA</div>
+            <h3>Enterprise Architecture</h3>
+            <p>
+              Create resilient, scalable, and future-ready architecture foundations for digital
+              platforms, applications, integrations, and transformation programmes.
+            </p>
+            <ul>
+              <li>Application and solution architecture</li>
+              <li>Modernization and migration planning</li>
+              <li>Architecture governance and standards</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <div class="icon">DX</div>
+            <h3>Digital Transformation</h3>
+            <p>
+              Support organizations in navigating complexity, improving delivery maturity, and
+              transforming business capabilities through structured change initiatives.
+            </p>
+            <ul>
+              <li>Transformation strategy</li>
+              <li>Programme advisory and alignment</li>
+              <li>Technology-enabled process improvement</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <div class="icon">CL</div>
+            <h3>Leadership & Thought Partnership</h3>
+            <p>
+              Equip business and technology leaders with clear perspectives on AI, digital change,
+              emerging trends, and strategic decision-making.
+            </p>
+            <ul>
+              <li>Keynotes and strategic briefings</li>
+              <li>Board and senior management support</li>
+              <li>Innovation and future-readiness guidance</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <div class="icon">IN</div>
+            <h3>Innovation Enablement</h3>
+            <p>
+              Help teams identify, validate, and prioritize high-value initiatives with a balance of
+              ambition, feasibility, compliance, and operational practicality.
+            </p>
+            <ul>
+              <li>Innovation portfolio framing</li>
+              <li>Use-case evaluation</li>
+              <li>Value-driven experimentation</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <div class="icon">PM</div>
+            <h3>Strategic Project Support</h3>
+            <p>
+              Bring structure and confidence to high-impact initiatives that require technology
+              insight, stakeholder alignment, and disciplined execution.
+            </p>
+            <ul>
+              <li>Stakeholder alignment</li>
+              <li>Solution planning and oversight</li>
+              <li>Delivery acceleration support</li>
+            </ul>
+          </article>
         </div>
-        <div class="case-arrow">→</div>
       </div>
-      <div class="case-card reveal">
-        <div class="case-industry">Healthcare</div>
-        <div class="case-title">Clinical document intelligence for hospital network</div>
-        <div class="case-desc">Built a RAG-powered system to extract and summarize key information from unstructured clinical notes across 12 hospitals.</div>
-        <div class="case-result">
-          <div class="result-item">
-            <div class="result-val">60%</div>
-            <div class="result-label">Time Saved</div>
-          </div>
-        </div>
-        <div class="case-arrow">→</div>
-      </div>
-      <div class="case-card reveal">
-        <div class="case-industry">Retail & E-Commerce</div>
-        <div class="case-title">Demand forecasting engine powering $500M in inventory</div>
-        <div class="case-desc">Deployed a multi-variate forecasting model integrating real-time demand signals, seasonality, and macroeconomic indicators.</div>
-        <div class="case-result">
-          <div class="result-item">
-            <div class="result-val">31%</div>
-            <div class="result-label">Stockout Reduction</div>
-          </div>
-        </div>
-        <div class="case-arrow">→</div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- TESTIMONIALS -->
+    <section id="about" class="section">
+      <div class="container">
+        <div class="pill">About Gavya Consulting</div>
+        <h2>Built for leaders who want strategic clarity and execution strength</h2>
+        <p class="section-text">
+          Gavya Consulting is positioned at the intersection of AI, enterprise technology, and
+          transformation leadership. We work with organizations that want more than theory—they want
+          structured, credible, and actionable progress.
+        </p>
 
-  <section id="testimonials">
-    <div class="testimonials-header reveal">
-      <div class="section-label">Client Voices</div>
-      <h2>What our clients say</h2>
-    </div>
-    <div class="testimonials-grid">
-      <div class="testimonial-card reveal">
-        <p class="testimonial-text">GAVYA didn't just deliver a model — they transformed how our entire analytics team thinks about problems. The strategic clarity they brought was as valuable as the technology.</p>
-        <div class="testimonial-author">
-          <div class="author-avatar">SR</div>
-          <div>
-            <div class="author-name">Sarah Reinholt</div>
-            <div class="author-role">Chief Data Officer, Meridian Financial</div>
+        <div class="about-grid">
+          <div class="about-box">
+            <h3>What sets us apart</h3>
+            <ul>
+              <li>Strong blend of business strategy and deep technology understanding</li>
+              <li>Experience across enterprise and institutional environments</li>
+              <li>Focus on practical, scalable, and responsible transformation</li>
+              <li>Clear communication for both executives and delivery teams</li>
+            </ul>
+          </div>
+
+          <div class="about-box">
+            <h3>Who we support</h3>
+            <ul>
+              <li>Enterprises shaping their AI and digital transformation agenda</li>
+              <li>Public-sector and institutional organizations managing complexity</li>
+              <li>Leaders seeking trusted advisory for modernization initiatives</li>
+              <li>Teams looking for architecture, innovation, and strategy alignment</li>
+            </ul>
           </div>
         </div>
       </div>
-      <div class="testimonial-card reveal">
-        <p class="testimonial-text">We had tried two other consultancies before GAVYA. The difference was their ability to bridge the gap between AI research and real-world business constraints. Exceptional team.</p>
-        <div class="testimonial-author">
-          <div class="author-avatar">JC</div>
-          <div>
-            <div class="author-name">James Chen</div>
-            <div class="author-role">VP of Operations, Apex Health Systems</div>
+    </section>
+
+    <section id="insights" class="section">
+      <div class="container">
+        <div class="pill">Insights</div>
+        <h2>Perspective that connects innovation, governance, and business reality</h2>
+        <p class="section-text">
+          Gavya Consulting brings a balanced view on AI, enterprise modernization, and leadership in
+          times of rapid technological change.
+        </p>
+
+        <div class="insights-grid">
+          <article class="card">
+            <div class="insight-tag">AI Strategy</div>
+            <h3>From AI hype to execution</h3>
+            <p>
+              Build an AI roadmap that prioritizes value, governance, and organizational readiness
+              instead of disconnected experimentation.
+            </p>
+          </article>
+
+          <article class="card">
+            <div class="insight-tag">Architecture</div>
+            <h3>Modern systems need clear foundations</h3>
+            <p>
+              Sustainable transformation depends on architecture choices that enable resilience,
+              interoperability, scalability, and long-term agility.
+            </p>
+          </article>
+
+          <article class="card">
+            <div class="insight-tag">Leadership</div>
+            <h3>Technology decisions are business decisions</h3>
+            <p>
+              The strongest organizations align executive vision, governance, delivery models, and
+              innovation capacity from the start.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="container">
+        <div class="cta-box">
+          <div class="pill" style="justify-content:center;">Strategic partnership starts with one conversation</div>
+          <h2>Ready to shape your next transformation step?</h2>
+          <p>
+            Whether you are exploring AI opportunities, modernizing enterprise platforms, or looking
+            for a trusted strategic advisor, Gavya Consulting is ready to help.
+          </p>
+          <a href="#contact" class="btn btn-primary">Talk to Gavya Consulting</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section">
+      <div class="container">
+        <div class="pill">Contact</div>
+        <h2>Let’s discuss your goals</h2>
+        <p class="section-text">
+          Reach out for consulting enquiries, strategic discussions, speaking opportunities, or
+          partnership conversations.
+        </p>
+
+        <div class="contact-grid">
+          <div class="glass-card">
+            <h3>Contact details</h3>
+            <div class="contact-list">
+              <div class="contact-item">
+                <small>Email</small>
+                <a href="mailto:sales@gavya.eu">sales@gavya.eu</a>
+              </div>
+              <div class="contact-item">
+                <small>Website</small>
+                <a href="https://gavya.eu" target="_blank" rel="noopener noreferrer">gavya.eu</a>
+              </div>
+              <div class="contact-item">
+                <small>LinkedIn</small>
+                <a href="https://www.linkedin.com/in/chandrakumarpillai/" target="_blank" rel="noopener noreferrer">Chandrakumar PILLAI</a>
+              </div>
+              <div class="contact-item">
+                <small>Location</small>
+                <span>Brussels Region, Europe</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="glass-card">
+            <h3>Send a message</h3>
+            <form class="contact-form" action="mailto:sales@gavya.eu" method="post" enctype="text/plain">
+              <input type="text" name="name" placeholder="Your name" required />
+              <input type="email" name="email" placeholder="Your email" required />
+              <input type="text" name="company" placeholder="Company / Organization" />
+              <textarea name="message" placeholder="Tell us briefly about your needs" required></textarea>
+              <button type="submit" class="btn btn-primary">Send enquiry</button>
+              <p class="form-note">
+                Replace this form later with Formspree, Netlify Forms, or another form backend for a smoother experience.
+              </p>
+            </form>
           </div>
         </div>
       </div>
-      <div class="testimonial-card reveal">
-        <p class="testimonial-text">From roadmap to production in 11 weeks. I was skeptical it was possible, but GAVYA's structured approach and technical depth made it happen without cutting any corners.</p>
-        <div class="testimonial-author">
-          <div class="author-avatar">ML</div>
-          <div>
-            <div class="author-name">Maya Larsen</div>
-            <div class="author-role">CEO, Novatek Retail Group</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA -->
-
-  <section id="contact">
-    <div class="cta-glow"></div>
-    <div class="cta-inner reveal">
-      <div class="section-label">Get Started</div>
-      <h2>Ready to build something intelligent?</h2>
-      <p>Tell us what you're trying to solve. We'll respond within one business day with a candid assessment of how we can help.</p>
-      <div class="cta-form">
-        <input class="cta-input" type="email" placeholder="your@email.com" />
-        <button class="cta-btn">Let's Talk</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
+    </section>
+  </main>
 
   <footer>
-    <div class="footer-top">
-      <div class="footer-brand">
-        <a href="#" class="logo">Neural<span>Edge</span></a>
-        <p>AI consulting for organizations that take the future seriously. Strategy, engineering, and execution — under one roof.</p>
-      </div>
-      <div class="footer-cols">
-        <div class="footer-col">
-          <h5>Services</h5>
-          <ul>
-            <li><a href="#">AI Strategy</a></li>
-            <li><a href="#">LLM Products</a></li>
-            <li><a href="#">ML Engineering</a></li>
-            <li><a href="#">AI Automation</a></li>
-            <li><a href="#">Data Architecture</a></li>
-            <li><a href="#">Governance & Risk</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h5>Company</h5>
-          <ul>
-            <li><a href="#">About Us</a></li>
-            <li><a href="#">Case Studies</a></li>
-            <li><a href="#">Insights</a></li>
-            <li><a href="#">Careers</a></li>
-            <li><a href="#">Contact</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <div class="footer-copy">© 2026 GAVYA Consulting. All rights reserved.</div>
-      <div class="footer-socials">
-        <a href="#" class="social-link">Li</a>
-        <a href="#" class="social-link">Tw</a>
-        <a href="#" class="social-link">Gh</a>
+    <div class="container footer-row">
+      <div>© <span id="year"></span> Gavya Consulting. All rights reserved.</div>
+      <div class="footer-links">
+        <a href="#services">Services</a>
+        <a href="#about">About</a>
+        <a href="#insights">Insights</a>
+        <a href="#contact">Contact</a>
       </div>
     </div>
   </footer>
 
   <script>
-    // Custom cursor
-    const cursor = document.getElementById('cursor');
-    const ring = document.getElementById('cursorRing');
-    let mx = 0, my = 0, rx = 0, ry = 0;
-    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
-    function animCursor() {
-      cursor.style.transform = `translate(${mx - 5}px, ${my - 5}px)`;
-      rx += (mx - rx) * 0.12;
-      ry += (my - ry) * 0.12;
-      ring.style.transform = `translate(${rx - 18}px, ${ry - 18}px)`;
-      requestAnimationFrame(animCursor);
-    }
-    animCursor();
-
-    // Nav scroll
-    const nav = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-      nav.classList.toggle('scrolled', window.scrollY > 40);
-    });
-
-    // Reveal on scroll
-    const reveals = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry, i) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => entry.target.classList.add('visible'), 80);
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1 });
-    reveals.forEach(el => observer.observe(el));
+    document.getElementById("year").textContent = new Date().getFullYear();
   </script>
-
 </body>
 </html>
